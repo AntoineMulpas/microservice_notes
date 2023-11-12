@@ -6,22 +6,14 @@ import com.medilabo.microservice_notes.repositories.NoteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @DataMongoTest(includeFilters = @ComponentScan.Filter(Service.class))
 @ExtendWith(SpringExtension.class)
@@ -46,7 +38,7 @@ class NoteServiceTest {
         //when(noteRepository.insert(note)).thenReturn(note);
         Note insertedNote = underTest.addNote(note);
         assertEquals(note.getNote(), insertedNote.getNote());
-        assertEquals(note.getPatient(), insertedNote.getPatient());
+        assertEquals(note.getPatientId(), insertedNote.getPatientId());
     }
 
     @Test
@@ -54,7 +46,7 @@ class NoteServiceTest {
         noteRepository.save(note);
         Note foundNote = underTest.findNoteById(note.getId());
         assertEquals(note.getNote(), foundNote.getNote());
-        assertEquals(note.getPatient(), foundNote.getPatient());
+        assertEquals(note.getPatientId(), foundNote.getPatientId());
     }
 
     @Test

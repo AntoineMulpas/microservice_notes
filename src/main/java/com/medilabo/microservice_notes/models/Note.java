@@ -15,10 +15,10 @@ public class Note {
     @Id
     private String id;
     private String note;
-    private String patient;
+    private String patientId;
 
-    public Note(String note, String patient) {
+    public Note(String note, String patientId) {
         this.note = note;
-        this.patient = patient;
+        this.patientId = patientId;
     }
 }

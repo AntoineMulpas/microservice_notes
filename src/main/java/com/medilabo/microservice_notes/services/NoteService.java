@@ -49,4 +49,8 @@ public class NoteService {
         throw new NoteNotFoundException("Note with ID: " + id + " does not exist.");
     }
 
+    public List<Note> findNoteByPatientId(String patientId) {
+        return notesRepository.findNoteByPatientIdEquals(patientId);
+    }
+
 }

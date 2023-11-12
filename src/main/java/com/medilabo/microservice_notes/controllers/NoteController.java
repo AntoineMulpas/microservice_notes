@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/note")
+@CrossOrigin(origins = "*")
 public class NoteController {
 
     private final NoteService noteService;
@@ -22,7 +23,7 @@ public class NoteController {
     }
 
 
-    @PostMapping("/add")
+    @PostMapping(value = "/add", consumes = "application/json")
     public ResponseEntity<Note> addNote(
             @RequestBody Note note
     ) {
@@ -61,6 +62,14 @@ public class NoteController {
         } catch (NoteNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+    }
+
+    @GetMapping("/patient/{id}")
+    public ResponseEntity<List<Note>> findNoteByPatientId(
+            @PathVariable String id
+    ) {
+        List <Note> notes = noteService.findNoteByPatientId(id);
+        return ResponseEntity.ok().body(notes);
     }
 
 }
